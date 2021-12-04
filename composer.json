@@ -1,0 +1,24 @@
+{
+    "name": "ulyssear/ulyssear-router",
+    "type": "library",
+    "version": "0.1",
+    "require": {
+        "php": "^8.0",
+        "ulyssear/flexible-collections": "^1.2.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ulyssear\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ulysse ARNAUD",
+            "email": "ulysse.arnaud@liigem.io"
+        }
+    ]
+}

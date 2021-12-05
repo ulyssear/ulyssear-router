@@ -120,8 +120,8 @@ class Router
         return true;
     }
 
-    private static function view(string $uri, string $view) {
-        echo include_once(self::$viewPath . "/../views/$view.php");
+    private static function view(string $uri, string $view, ?string $name, array $data = []) {
+        return self::route('GET', $uri, fn() => include_once(self::$viewPath . "/../views/$view.php"), $name, $data);
     }
 
     public static function setViewPath (string $path) {

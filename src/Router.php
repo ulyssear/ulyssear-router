@@ -7,6 +7,7 @@ class Router
 {
 
     private static Collection $routes;
+    private static string $viewPath;
 
     public static function __callStatic(string $method, array $parameters)
     {
@@ -99,6 +100,11 @@ class Router
         return self::$routes;
     }
 
+    private static function options()
+    {
+        return self::$options;
+    }
+
     private static function render() {
         $current = self::currentRoute();
 
@@ -115,7 +121,11 @@ class Router
     }
 
     private static function view(string $uri, string $view) {
-        echo include_once(__DIR__ . "/../views/$view.php");
+        echo include_once(self::$viewPath . "/../views/$view.php");
+    }
+
+    public static function setViewPath (string $path) {
+        self::$viewPath = $path;
     }
 
 }

@@ -116,4 +116,8 @@ class Router
         return true;
     }
 
+    private static function view(string $uri, string $view) {
+        echo include_once(__DIR__ . "/../views/$view.php");
+    }
+
 }

@@ -21,15 +21,15 @@ class Response
     }
 
     public function body() {
+        $this->headers->pushNamedItem('Content-Type', 'text/html');
 
+        return true;
     }
 
     public function json(array|string $content = null) {
         $this->headers->pushNamedItem('Content-Type', 'text/json');
 
-        foreach($this->headers->entries() as $name => $value) {
-            header("$name:$value");
-        }
+        $this->writeHeader();
 
         $content ??= $this->content;
 
@@ -38,6 +38,12 @@ class Response
         }
 
         return $content;
+    }
+
+    private function writeHeader() {
+        foreach($this->headers->entries() as $name => $value) {
+            header("$name:$value");
+        }
     }
 
 }

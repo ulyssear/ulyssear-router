@@ -8,10 +8,15 @@ class Router
 
     private static Collection $routes;
     private static string $viewPath;
+    private static string $viewFileFormat;
 
     public static function __callStatic(string $method, array $parameters)
     {
         if (!method_exists(__CLASS__, $method)) return;
+
+        if (!isset(self::$viewFileFormat)) {
+            self::$viewFileFormat = '.php';
+        }
 
         if (!isset(self::$routes)) {
             self::$routes = (new Collection)
@@ -87,11 +92,13 @@ class Router
         return false;
     }
 
-    private static function get(string $uri, $callback, ?string $name = null, array $data = []) {
+    private static function get(string $uri, $callback, ?string $name = null, array $data = [])
+    {
         return self::route('GET', $uri, $callback, $name, $data);
     }
 
-    private static function post(string $uri, $callback, ?string $name = null, array $data = []) {
+    private static function post(string $uri, $callback, ?string $name = null, array $data = [])
+    {
         return self::route('POST', $uri, $callback, $name, $data);
     }
 
@@ -100,12 +107,8 @@ class Router
         return self::$routes;
     }
 
-    private static function options()
+    private static function render()
     {
-        return self::$options;
-    }
-
-    private static function render() {
         $current = self::currentRoute();
 
         $body = [
@@ -120,12 +123,19 @@ class Router
         return true;
     }
 
-    private static function view(string $uri, string $view, ?string $name, array $data = []) {
-        return self::route('GET', $uri, fn() => include_once(self::$viewPath . "/../views/$view.php"), $name, $data);
+    private static function view(string $uri, string $view, ?string $name = null, array $data = [])
+    {
+        return self::route('GET', $uri, fn() => include_once(self::$viewPath . "/$view" . self::$viewFileFormat), $name, $data);
     }
 
-    public static function setViewPath (string $path) {
+    private static function setViewPath(string $path)
+    {
         self::$viewPath = $path;
+    }
+
+    private static function setViewFileFormat(string $fileFormat)
+    {
+        self::$viewFileFormat = $fileFormat;
     }
 
 }

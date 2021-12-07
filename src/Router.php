@@ -14,6 +14,34 @@ class Router
     {
         if (!method_exists(__CLASS__, $method)) return;
 
+        if (!isset(self::$viewPath)) {
+            $_path = dirname(__FILE__);
+            while (true) {
+                if ('/' === ($_path = dirname($_path))){
+                    self::$viewPath = dirname(__FILE__) . "/resources/views";
+                    break;
+                }
+                if (0 < count(array_filter(scandir($_path), fn($current) => 'vendor' === $current))) {
+                    self::$viewPath = "$_path/resources/views";
+                    break;
+                }
+            }
+        }
+
+        if (!isset(self::$storagePath)) {
+            $_path = dirname(__FILE__);
+            while (true) {
+                if ('/' === ($_path = dirname($_path))){
+                    self::$storagePath = dirname(__FILE__) . "/storage/views";
+                    break;
+                }
+                if (0 < count(array_filter(scandir($_path), fn($current) => 'vendor' === $current))) {
+                    self::$storagePath = "$_path/storage/views";
+                    break;
+                }
+            }
+        }
+
         if (View::viewPath() !== self::$viewPath) View::setViewPath(self::$viewPath);
         if (View::storagePath() !== self::$storagePath) View::setStoragePath(self::$storagePath);
 

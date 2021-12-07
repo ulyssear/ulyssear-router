@@ -43,7 +43,11 @@ class Response
 
         $this->writeHeader();
 
-        $this->content = include_once Template::make($name);
+        ob_start();
+        include Template::make($name);
+        $content = ob_get_clean();
+        $this->content = $content;
+        ob_clean();
 
         return $this->content;
     }

@@ -38,6 +38,16 @@ class Response
         return $content;
     }
 
+    public function view (string $name) {
+        $this->headers->pushNamedItem('Content-Type', 'text/html');
+
+        $this->writeHeader();
+
+        $this->content = include_once Template::make($name);
+
+        return $this->content;
+    }
+
     private function writeHeader() {
         foreach($this->headers->entries() as $name => $value) {
             header("$name:$value");

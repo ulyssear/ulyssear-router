@@ -125,7 +125,9 @@ class Router
 
     private static function view(string $uri, string $view, ?string $name = null, array $data = [])
     {
-        return self::route('GET', $uri, fn() => include_once(self::$viewPath . "/$view" . self::$viewFileFormat), $name, $data);
+        return self::route('GET', $uri, function () use ($uri, $name) {
+            echo (new Response(200, $uri))->view($name);
+        }, $name, $data);
     }
 
     private static function setViewPath(string $path)

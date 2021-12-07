@@ -8,15 +8,14 @@ class Router
 
     private static Collection $routes;
     private static string $viewPath;
-    private static string $viewFileFormat;
+    private static string $storagePath;
 
     public static function __callStatic(string $method, array $parameters)
     {
         if (!method_exists(__CLASS__, $method)) return;
 
-        if (!isset(self::$viewFileFormat)) {
-            self::$viewFileFormat = '.php';
-        }
+        if (View::viewPath() !== self::$viewPath) View::setViewPath(self::$viewPath);
+        if (View::storagePath() !== self::$storagePath) View::setStoragePath(self::$storagePath);
 
         if (!isset(self::$routes)) {
             self::$routes = (new Collection)
@@ -135,9 +134,8 @@ class Router
         self::$viewPath = $path;
     }
 
-    private static function setViewFileFormat(string $fileFormat)
+    private static function setStoragePath(string $path)
     {
-        self::$viewFileFormat = $fileFormat;
+        self::$storagePath = $path;
     }
-
 }

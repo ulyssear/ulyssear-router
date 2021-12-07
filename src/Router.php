@@ -125,8 +125,8 @@ class Router
 
     private static function view(string $uri, string $view, ?string $name = null, array $data = [])
     {
-        return self::route('GET', $uri, function () use ($uri, $name) {
-            echo (new Response(200, $uri))->view($name);
+        return self::route('GET', $uri, function () use ($uri, $view) {
+            echo (new Response(200, $uri))->view($view);
         }, $name, $data);
     }
 

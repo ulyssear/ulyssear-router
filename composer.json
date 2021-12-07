@@ -1,7 +1,7 @@
 {
     "name": "ulyssear/ulyssear-router",
     "type": "library",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "require": {
         "php": "^8.0",
         "ulyssear/flexible-collections": "^1.2.2"

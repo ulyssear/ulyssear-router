@@ -1,11 +1,11 @@
 {
     "name": "ulyssear/ulyssear-router",
     "type": "library",
-    "version": "0.1.12",
+    "version": "0.1.13",
     "require": {
         "php": "^8.0",
         "ulyssear/flexible-collections": "^1.2.2",
-        "ulyssear/ulyssear-template": "^0.1.2"
+        "ulyssear/ulyssear-template": "^0.1.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"
